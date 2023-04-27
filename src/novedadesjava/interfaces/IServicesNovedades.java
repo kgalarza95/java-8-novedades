@@ -16,4 +16,5 @@ public interface IServicesNovedades {
     public String getRepoData();
 
     public String getRepoNoData();
+    
 }

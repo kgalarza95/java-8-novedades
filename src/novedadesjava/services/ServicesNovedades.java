@@ -4,8 +4,12 @@
  */
 package novedadesjava.services;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 import novedadesjava.dto.Response;
+import novedadesjava.interfaces.ICalculoSueldo;
 import novedadesjava.interfaces.IServicesNovedades;
 import repository.RepositoryNovedades;
 
@@ -55,4 +59,21 @@ public class ServicesNovedades implements IServicesNovedades {
         return json;
     }
 
+    //no forma parte de java 8
+    @Deprecated
+    public void getDemoProgramacionReactiva() {
+        List<Integer> numeros = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+        Stream<Integer> flujoNumeros = Stream.of(numeros.toArray(new Integer[0]));
+        Stream<Integer> flujoPares = flujoNumeros.filter(numero -> numero % 2 == 0);
+        int[] numerosParesMultiplicados = flujoPares.mapToInt(numero -> numero * 2).toArray();
+
+        //metodo de referencia
+        Arrays.stream(numerosParesMultiplicados).forEach(System.out::println);
+    }
+
+    ICalculoSueldo operacion = (sueldo, desceunto) -> (sueldo - desceunto);
+
+    public double calcular(double a, double b) {
+        return operacion.calcular(a, b);
+    }
 }

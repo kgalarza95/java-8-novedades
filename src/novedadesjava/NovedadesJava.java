@@ -26,6 +26,8 @@ public class NovedadesJava {
         ServicesNovedades serviceNo = new ServicesNovedades();
         System.out.println("resp data " + serviceNo.getRepoData());
         System.out.println("resp no data" + serviceNo.getRepoNoData());
+        serviceNo.getDemoProgramacionReactiva();
+        System.out.println("Interfaz funcional "+serviceNo.calcular(550, 15));
     }
 
 }
