@@ -8,8 +8,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import novedadesjava.dto.Response;
 import novedadesjava.interfaces.ICalculoSueldo;
+import novedadesjava.interfaces.IDefaultMetodo;
 import novedadesjava.interfaces.IServicesNovedades;
 import repository.RepositoryNovedades;
 
@@ -17,7 +21,7 @@ import repository.RepositoryNovedades;
  *
  * @author kgalarza
  */
-public class ServicesNovedades implements IServicesNovedades {
+public class ServicesNovedades implements IServicesNovedades, IDefaultMetodo {
 
     RepositoryNovedades repo;
 
@@ -76,4 +80,40 @@ public class ServicesNovedades implements IServicesNovedades {
     public double calcular(double a, double b) {
         return operacion.calcular(a, b);
     }
+
+    public void getUseStream() {
+        List<Integer> numeros = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+        numeros.stream()
+                .filter(n -> n > 4)
+                .forEach(System.out::println);
+
+    }
+
+    @Override
+    public void defResultado(String operacion, int num1, int num2) {
+        switch (operacion) {
+            case "S":
+                sumar(num1, num2);
+                break;
+            case "R":
+                resta(num1, num2);
+                break;
+            default:
+                throw new AssertionError();
+        }
+    }
+
+    public void useNashorn() {
+        ScriptEngineManager manager = new ScriptEngineManager();
+        ScriptEngine engine = manager.getEngineByName("nashorn");
+
+        try {
+            engine.eval("print('Hola, mundo!')");
+            //engine.eval("console.log('Hola, mundo!')");
+        } catch (ScriptException ex) {
+            ex.printStackTrace();
+        }
+    }
+
 }
